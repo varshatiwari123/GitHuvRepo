@@ -1,4 +1,8 @@
 <!DOCTYPE HTML>
+<?php
+require_once 'process.php';
+
+?>
 
 <html>  
 <head>
@@ -33,42 +37,6 @@
 	
   </form>
 </div>
-
-<?php 
-
-
-if(isset($_POST['submit'])){ 
-  $username = $_POST['username']; 
-  $password = md5($_POST['password']); 
-  
-  echo  $password;
-  session_start();
-
-$conn= mysqli_connect("127.0.0.1:3307","root","","mydb")or die(mysql_error());
-
-$sql="select * from usertable where username='$username' AND password='$password'";
-
-if ($result=mysqli_query($conn,$sql))
-  {
-   
-  // Return the number of rows in result set
-  $rowcount=mysqli_num_rows($result);
-  echo 'Result set has %d rows.'.$rowcount ;
-  if($rowcount==1){
-      $_SESSION['username']=$username;
-       $_SESSION['password']=$password;
-      header('Location:process.php');
-      
-  }
-  else
-      echo'fail';
-  // Free result set
-  mysqli_free_result($result);
-  }
-
-
-}
-?>
 
 
 
